@@ -1,0 +1,197 @@
+{%- if section.settings.show_section -%}
+{%- liquid
+  assign rating = section.settings.rating | default: '4.1'
+  assign count_label = section.settings.count_label | default: '1858 ratings'
+-%}
+      <div class="product_reviews_section">
+        <div class="padding-global padding-section-large">
+          <div class="container-large">
+            <div class="template_product_reviews_wrapper">
+              <div class="template_product_reviews_title">
+                <h2>{{ section.settings.heading | escape }}</h2>
+                <div class="template_product_reviews_title_divider"></div>
+              </div>
+
+              <div class="template_product_reviews_rating_wrapper">
+                <div class="template_product_reviews_rating_content">
+                  <div class="template_product_reviews_rating_content_numbers">
+                    <div class="template_product_reviews_rating_graph_grid">
+                      <div class="template_rating_up">{{ rating }}</div>
+                      <div class="template_rating_down">/5</div>
+                    </div>
+                    <div class="template_product_reviews_rating">
+                      <div class="template_product_description_review">
+                        {%- for i in (1..5) -%}
+                          <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M7.25672 0.489876C7.53172 -0.163293 8.46832 -0.163292 8.74332 0.489878L10.3663 4.345C10.4823 4.62036 10.7445 4.8085 11.0454 4.83233L15.2582 5.166C15.9719 5.22253 16.2614 6.10252 15.7175 6.56274L12.5079 9.27896C12.2786 9.473 12.1784 9.77745 12.2485 10.0675L13.2291 14.1288C13.3952 14.8169 12.6375 15.3608 12.0264 14.9921L8.41965 12.8157C8.16202 12.6602 7.83802 12.6602 7.5804 12.8157L3.9736 14.9921C3.3625 15.3608 2.60477 14.8169 2.77091 14.1288L3.75155 10.0675C3.82159 9.77745 3.72147 9.473 3.49221 9.27896L0.28245 6.56274C-0.261375 6.10252 0.0280544 5.22253 0.741835 5.166L4.9547 4.83233C5.25561 4.8085 5.51774 4.62036 5.63367 4.345L7.25672 0.489876Z" fill="currentColor"></path></svg></div>
+                        {%- endfor -%}
+                      </div>
+                      <div>{{ count_label }}</div>
+                    </div>
+                  </div>
+
+                  <div class="template_product_reviews_rating_line_graph">
+                    {%- assign bars = '5,4,3,2,1' | split: ',' -%}
+                    {%- assign percents = section.settings.rating_breakdown | split: ',' -%}
+                    {%- for star in bars -%}
+                      {%- assign pct = percents[forloop.index0] | strip | default: '20' -%}
+                      <div class="template_product_reviews_rating_line_graph_wrapper">
+                        <div class="start_ratings">
+                          <div class="text-size-regular">{{ star }}</div>
+                          <div class="icon-embed-xxsmall text-color-accent w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M7.25672 0.489876C7.53172 -0.163293 8.46832 -0.163292 8.74332 0.489878L10.3663 4.345C10.4823 4.62036 10.7445 4.8085 11.0454 4.83233L15.2582 5.166C15.9719 5.22253 16.2614 6.10252 15.7175 6.56274L12.5079 9.27896C12.2786 9.473 12.1784 9.77745 12.2485 10.0675L13.2291 14.1288C13.3952 14.8169 12.6375 15.3608 12.0264 14.9921L8.41965 12.8157C8.16202 12.6602 7.83802 12.6602 7.5804 12.8157L3.9736 14.9921C3.3625 15.3608 2.60477 14.8169 2.77091 14.1288L3.75155 10.0675C3.82159 9.77745 3.72147 9.473 3.49221 9.27896L0.28245 6.56274C-0.261375 6.10252 0.0280544 5.22253 0.741835 5.166L4.9547 4.83233C5.25561 4.8085 5.51774 4.62036 5.63367 4.345L7.25672 0.489876Z" fill="currentColor"></path></svg></div>
+                        </div>
+                        <div class="ratings_line">
+                          <div class="ratings_line_upper" style="width: {{ pct }}%;"></div>
+                          <div class="ratings_line_lower"></div>
+                        </div>
+                        <div class="ratings_number">
+                          <div class="text-size-regular">{{ pct }}%</div>
+                        </div>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                </div>
+
+                <div class="template_product_reviews_rating_grid">
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'photo' -%}
+                      <div class="template_product_reviews_rating_item_wrapper" {{ block.shopify_attributes }}>
+                        {%- if block.settings.image != blank -%}
+                          {{ block.settings.image | image_url: width: 400 | image_tag:
+                            loading: 'lazy',
+                            class: 'template_product_reviews_rating_item',
+                            alt: block.settings.alt
+                          }}
+                        {%- else -%}
+                          <img src="{{ 'Placeholder-Image.png' | asset_url }}" loading="lazy" alt="" class="template_product_reviews_rating_item">
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+
+              <div class="template_product_reviews_title">
+                <div class="template_product_reviews_title_wrapper">
+                  <h2>{{ section.settings.reviews_heading | escape }}</h2>
+                </div>
+                <div class="template_product_reviews_title_divider"></div>
+                {%- if section.settings.show_filters -%}
+                  <div class="form_filter-block w-form">
+                    <form method="get" class="form_filter">
+                      <div class="form_filter-selectcustom_component">
+                        <div class="form_filter-dropdown-list">
+                          <input class="form_filter_input is-search w-input" maxlength="256" name="q" placeholder="Search reviews" type="text">
+                          {%- assign filter_labels = 'Most recent,All ratings,All variants,More filters' | split: ',' -%}
+                          {%- for label in filter_labels -%}
+                            <div class="form_filter-selectcustom_dropdown w-dropdown">
+                              <div class="form_filter-selectcustom_toggle is-light-grey w-dropdown-toggle">
+                                <div class="form_filter-selectcustom_arrow w-icon-dropdown-toggle"></div>
+                                <div class="form_filter-selectcustom_text">{{ label }}</div>
+                              </div>
+                            </div>
+                          {%- endfor -%}
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                {%- endif -%}
+              </div>
+
+              <div class="template_product_reviews_comments_wrapper">
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'review' -%}
+                    <div class="template_product_reviews_comments" {{ block.shopify_attributes }}>
+                      <div class="template_product_description_review">
+                        {%- for i in (1..5) -%}
+                          {%- if forloop.index <= block.settings.rating -%}
+                            <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M7.25672 0.489876C7.53172 -0.163293 8.46832 -0.163292 8.74332 0.489878L10.3663 4.345C10.4823 4.62036 10.7445 4.8085 11.0454 4.83233L15.2582 5.166C15.9719 5.22253 16.2614 6.10252 15.7175 6.56274L12.5079 9.27896C12.2786 9.473 12.1784 9.77745 12.2485 10.0675L13.2291 14.1288C13.3952 14.8169 12.6375 15.3608 12.0264 14.9921L8.41965 12.8157C8.16202 12.6602 7.83802 12.6602 7.5804 12.8157L3.9736 14.9921C3.3625 15.3608 2.60477 14.8169 2.77091 14.1288L3.75155 10.0675C3.82159 9.77745 3.72147 9.473 3.49221 9.27896L0.28245 6.56274C-0.261375 6.10252 0.0280544 5.22253 0.741835 5.166L4.9547 4.83233C5.25561 4.8085 5.51774 4.62036 5.63367 4.345L7.25672 0.489876Z" fill="currentColor"></path></svg></div>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                      <div class="template_product_reviews_comments_content">
+                        <h5>&ldquo;{{ block.settings.headline | escape }}&rdquo;</h5>
+                        <div class="template_product_reviews_comments_details">
+                          <div><strong>{{ block.settings.author | escape }}</strong></div>
+                          {%- if block.settings.verified -%}
+                            <div class="text-size-small text-color-secondary">Verified buyer</div>
+                          {%- endif -%}
+                        </div>
+                        <p>{{ block.settings.body }}</p>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              {%- if section.settings.show_more_url != blank -%}
+                <div class="button-group align-center">
+                  <a href="{{ section.settings.show_more_url }}" class="button is-icon w-inline-block">
+                    <div class="button-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 13 13" fill="none" aria-hidden="true"><circle cx="6.5" cy="6.5" r="6.5" fill="currentColor"></circle></svg></div>
+                    <div>{{ section.settings.show_more_label | default: 'SHOW MORE' | escape }}</div>
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product reviews",
+  "tag": "section",
+  "class": "shopify-section-product-reviews",
+  "settings": [
+    { "type": "checkbox", "id": "show_section", "label": "Show this section", "default": true },
+    { "type": "header", "content": "Rating summary" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Customer testimonials" },
+    { "type": "text", "id": "rating", "label": "Rating", "default": "4.1", "info": "Overall rating out of 5." },
+    { "type": "text", "id": "count_label", "label": "Ratings count label", "default": "1858 ratings" },
+    { "type": "text", "id": "rating_breakdown", "label": "Star breakdown %", "default": "47,31,14,4,4", "info": "Comma-separated percentages for 5,4,3,2,1 stars." },
+    { "type": "header", "content": "Reviews list" },
+    { "type": "text", "id": "reviews_heading", "label": "Heading", "default": "Reviews" },
+    { "type": "checkbox", "id": "show_filters", "label": "Show filter bar", "default": true, "info": "Visual only — connect to your review app for live filtering." },
+    { "type": "text", "id": "show_more_label", "label": "Show more label", "default": "SHOW MORE" },
+    { "type": "url", "id": "show_more_url", "label": "Show more URL", "info": "Leave blank to hide the Show more button." }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Review photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "headline", "label": "Headline", "default": "Best sun sleeves I've worn" },
+        { "type": "text", "id": "author", "label": "Author", "default": "Name Surname" },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Lorem ipsum dolor sit amet consectetur. Lacus odio dui est risus nunc eget mattis.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 30,
+  "presets": [
+    {
+      "name": "Product reviews",
+      "blocks": [
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "review", "settings": { "rating": 5, "headline": "Lorem ipsum", "author": "Name Surname", "verified": true, "body": "<p>Lorem ipsum dolor sit amet consectetur. Lacus odio dui est risus nunc eget mattis. Tortor consequat et mi sed pellentesque non duis pretium.</p>" } },
+        { "type": "review", "settings": { "rating": 5, "headline": "Lorem ipsum", "author": "Name Surname", "verified": true, "body": "<p>Lorem ipsum dolor sit amet consectetur. Lacus odio dui est risus nunc eget mattis. Tortor consequat et mi sed pellentesque non duis pretium.</p>" } },
+        { "type": "review", "settings": { "rating": 5, "headline": "Lorem ipsum", "author": "Name Surname", "verified": true, "body": "<p>Lorem ipsum dolor sit amet consectetur. Lacus odio dui est risus nunc eget mattis. Tortor consequat et mi sed pellentesque non duis pretium.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

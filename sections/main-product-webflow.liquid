@@ -1,0 +1,394 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign rating_count = product.metafields[section.settings.rating_count_namespace][section.settings.rating_count_key].value | default: section.settings.rating_count_fallback -%}
+      <section class="product_header_section">
+        <div class="padding-global">
+          <div class="padding-vertical padding-small">
+            <div class="container-large">
+              <div class="w-embed w-script">
+                <style>
+  .is-active-accordion .product_faq_icon-wrap { transform: scale(1); }
+  .is-active-accordion .product_faq_label { margin-left: 0.5rem; font-weight: 700; }
+  .is-active-inputactive .product_radio_circle-inner { border-color: var(--border--dark); }
+                </style>
+                <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('#is-product-img-{{ section.id }}', {
+      spaceBetween: 16,
+      loop: true,
+      slidesPerView: 'auto',
+      navigation: {
+        nextEl: '#product-swiper-next-{{ section.id }}',
+        prevEl: '#product-swiper-prev-{{ section.id }}',
+      },
+      pagination: {
+        el: '#product-swiper-pagination-{{ section.id }}',
+        bulletClass: 'swiper_bullet',
+        bulletActiveClass: 'is-active',
+        clickable: true,
+      },
+    });
+  });
+                </script>
+              </div>
+
+              <div class="product_header_bredcrumbs-wrapper">
+                <a href="{{ routes.collections_url }}" class="product_header_bredcrumb-link">Shop all</a>
+                <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6.47099 11.2998L10.2757 7.4951L6.47099 3.69043L5.52832 4.6331L8.39032 7.4951L5.52832 10.3571L6.47099 11.2998Z" fill="currentColor"></path></svg></div>
+                {%- if product.collections.first -%}
+                  <a href="{{ product.collections.first.url }}" class="product_header_bredcrumb-link">{{ product.collections.first.title | escape }}</a>
+                  <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6.47099 11.2998L10.2757 7.4951L6.47099 3.69043L5.52832 4.6331L8.39032 7.4951L5.52832 10.3571L6.47099 11.2998Z" fill="currentColor"></path></svg></div>
+                {%- endif -%}
+                <a href="{{ product.url }}" class="product_header_bredcrumb-link">{{ product.title | escape }}</a>
+              </div>
+
+              <div class="spacer-small"></div>
+
+              <div class="swiper_wrapper">
+                <div id="is-product-img-{{ section.id }}" class="swiper is-product-img">
+                  <div class="swiper-wrapper is-product-img">
+                    {%- if product.media.size > 0 -%}
+                      {%- for media in product.media -%}
+                        <div class="swiper-slide is-product-img">
+                          <div class="product_header_img-wrap">
+                            {%- if media.media_type == 'image' -%}
+                              {{ media | image_url: width: 878 | image_tag:
+                                loading: forloop.first | iif: 'eager', 'lazy',
+                                sizes: '(max-width: 878px) 100vw, 878px',
+                                widths: '500,800,878',
+                                alt: media.alt | default: product.title
+                              }}
+                            {%- else -%}
+                              {{ media | media_tag: image_size: '878x' }}
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      {%- endfor -%}
+                    {%- else -%}
+                      <div class="swiper-slide is-product-img">
+                        <div class="product_header_img-wrap">
+                          <img src="{{ 'product-placeholder-1.webp' | asset_url }}" loading="lazy" sizes="(max-width: 878px) 100vw, 878px" alt="" srcset="{{ 'product-placeholder-1-p-500.webp' | asset_url }} 500w, {{ 'product-placeholder-1-p-800.webp' | asset_url }} 800w, {{ 'product-placeholder-1.webp' | asset_url }} 878w">
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+                <div class="spacer-small"></div>
+                <div class="swiper_bottom_wrapper">
+                  <div id="product-swiper-pagination-{{ section.id }}" class="swiper_bullet_wrapper"></div>
+                  <div class="swiper_arrow_wrapper">
+                    <div id="product-swiper-prev-{{ section.id }}" class="swiper_arrow is-dark">
+                      <div class="icon-embed-blogs w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.7069 17.293L8.41394 13H17.9999V11H8.41394L12.7069 6.70697L11.2929 5.29297L4.58594 12L11.2929 18.707L12.7069 17.293Z" fill="currentColor"></path></svg></div>
+                    </div>
+                    <div id="product-swiper-next-{{ section.id }}" class="swiper_arrow is-dark">
+                      <div class="icon-embed-blogs is-reversed w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.7069 17.293L8.41394 13H17.9999V11H8.41394L12.7069 6.70697L11.2929 5.29297L4.58594 12L11.2929 18.707L12.7069 17.293Z" fill="currentColor"></path></svg></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="spacer-medium"></div>
+
+              <div class="product_header_component">
+                <div class="product_header_content">
+                  <h1>{{ product.title | escape }}</h1>
+                  <div class="spacer-small"></div>
+                  <div class="product_price_display" data-price-display>{{ current_variant.price | money }}</div>
+                  {%- if section.settings.show_rating -%}
+                    <div class="product_trust_rating-wrap">
+                      <div class="product_star-rating_wrapper">
+                        {%- for i in (1..5) -%}
+                          <div class="product_star-rating_icon">
+                            <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M7.25672 0.489876C7.53172 -0.163293 8.46832 -0.163292 8.74332 0.489878L10.3663 4.345C10.4823 4.62036 10.7445 4.8085 11.0454 4.83233L15.2582 5.166C15.9719 5.22253 16.2614 6.10252 15.7175 6.56274L12.5079 9.27896C12.2786 9.473 12.1784 9.77745 12.2485 10.0675L13.2291 14.1288C13.3952 14.8169 12.6375 15.3608 12.0264 14.9921L8.41965 12.8157C8.16202 12.6602 7.83802 12.6602 7.5804 12.8157L3.9736 14.9921C3.3625 15.3608 2.60477 14.8169 2.77091 14.1288L3.75155 10.0675C3.82159 9.77745 3.72147 9.473 3.49221 9.27896L0.28245 6.56274C-0.261375 6.10252 0.0280544 5.22253 0.741835 5.166L4.9547 4.83233C5.25561 4.8085 5.51774 4.62036 5.63367 4.345L7.25672 0.489876Z" fill="currentColor"></path></svg></div>
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                      {%- if rating_count != blank -%}
+                        <div class="text-size-small">{{ rating_count }} reviews</div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  <div class="spacer-small"></div>
+                  <p>{{ product.description | default: section.settings.fallback_description | strip_html | truncatewords: 60 }}</p>
+                </div>
+
+                <div class="product_header_content">
+                  <div class="product_header_faqs-wrap">
+                    <div fs-accordion-initial="1" fs-accordion-element="group" class="product_faq_component">
+                      <div class="product_faq_embed hide w-embed w-script">
+                        <script>(()=>{var t="https://cdn.jsdelivr.net/npm/@finsweet/attributes-accordion@1/accordion.js",e=document.querySelector(`script[src="${t}"]`);e||(e=document.createElement("script"),e.async=!0,e.src=t,document.head.append(e));})();</script>
+                      </div>
+                      {%- for block in section.blocks -%}
+                        {%- if block.type == 'accordion' -%}
+                          {%- assign acc_body = block.settings.body -%}
+                          {%- if block.settings.use_product_description -%}{%- assign acc_body = product.description -%}{%- endif -%}
+                          <div fs-accordion-element="accordion" class="product_faq_item" {{ block.shopify_attributes }}>
+                            <div tabindex="0" role="button" aria-expanded="false" fs-accordion-element="trigger" class="product_faq_accordion_header">
+                              <div class="product_faq_icon-wrap">
+                                <div class="dot_1x1-small w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="currentColor"></circle></svg></div>
+                              </div>
+                              <div class="product_faq_label">{{ block.settings.heading | escape }}</div>
+                              <div fs-accordion-element="arrow" class="product_faq_arrow-wrap is-active-accordion">
+                                <div class="dash"></div>
+                              </div>
+                            </div>
+                            <div fs-accordion-element="content" class="product_faq_accordion_content">
+                              <div class="product_faq_body">
+                                <div class="product_faq_paragraph rte">{{ acc_body }}</div>
+                              </div>
+                            </div>
+                          </div>
+                        {%- endif -%}
+                      {%- else -%}
+                        <div fs-accordion-element="accordion" class="product_faq_item">
+                          <div class="product_faq_accordion_header">
+                            <div class="product_faq_label">Description</div>
+                          </div>
+                          <div fs-accordion-element="content" class="product_faq_accordion_content">
+                            <div class="product_faq_body">
+                              <div class="product_faq_paragraph rte">{{ product.description }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="product_header_content is-card">
+                  <div class="product_header_form-block w-form">
+                    {%- form 'product', product, id: 'product-form-' | append: section.id, class: 'product_header_form', data-product-form: '' -%}
+                      <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id-input>
+
+                      <div class="product_radio_embed w-embed w-script">
+                        <script>(()=>{var t="https://cdn.jsdelivr.net/npm/@finsweet/attributes-inputactive@1/inputactive.js",e=document.querySelector(`script[src="${t}"]`);e||(e=document.createElement("script"),e.async=!0,e.src=t,document.head.append(e));})();</script>
+                      </div>
+
+                      {%- for option in product.options_with_values -%}
+                        {%- assign option_handle = option.name | downcase -%}
+                        {%- assign current_value = option.selected_value -%}
+                        {%- if option_handle == 'color' or option_handle == 'colour' -%}
+                          <div class="product_radio_component">
+                            <div class="product_label">
+                              <div>{{ option.name | escape }}:</div>
+                              <div class="text-weight-bold" data-option-label="{{ option.position }}">{{ current_value | escape }}</div>
+                            </div>
+                            <div role="radiogroup" class="product_radio_group">
+                              {%- for value in option.values -%}
+                                {%- assign input_id = section.id | append: '-opt' | append: option.position | append: '-' | append: forloop.index -%}
+                                <label class="product_radio_field{% if value == current_value %} is-active-inputactive{% endif %} w-radio">
+                                  <div class="product_radio_circle-inner{% if forloop.index > 1 %} is-color-swatch-{{ forloop.index | minus: 1 }}{% endif %}"></div>
+                                  <div class="w-form-formradioinput w-form-formradioinput--inputType-custom product_radio_button w-radio-input{% if value == current_value %} w--redirected-checked{% endif %}"></div>
+                                  <input type="radio" name="option-{{ option.position }}" id="{{ input_id }}" value="{{ value | escape }}" data-option-input="{{ option.position }}" {% if value == current_value %}checked{% endif %} style="opacity:0;position:absolute;z-index:-1">
+                                  <span fs-inputactive-class="is-active-inputactive" class="product_radio_label w-form-label" for="{{ input_id }}">{{ value | escape }}</span>
+                                </label>
+                              {%- endfor -%}
+                            </div>
+                          </div>
+                        {%- elsif option_handle == 'size' -%}
+                          <div class="product_radio-size_component">
+                            <div class="product_label">
+                              <div>{{ option.name | escape }}:</div>
+                              <div class="text-weight-bold" data-option-label="{{ option.position }}">{{ current_value | escape }}</div>
+                            </div>
+                            <div role="radiogroup" class="product_radio-size_group">
+                              {%- for value in option.values -%}
+                                {%- assign input_id = section.id | append: '-opt' | append: option.position | append: '-' | append: forloop.index -%}
+                                <label class="product_radio-size_field{% if value == current_value %} is-active-inputactive{% endif %} w-radio">
+                                  <div class="w-form-formradioinput w-form-formradioinput--inputType-custom product_radio-size_button w-radio-input{% if value == current_value %} w--redirected-checked{% endif %}"></div>
+                                  <input type="radio" name="option-{{ option.position }}" id="{{ input_id }}" value="{{ value | escape }}" data-option-input="{{ option.position }}" {% if value == current_value %}checked{% endif %} style="opacity:0;position:absolute;z-index:-1">
+                                  <span fs-inputactive-class="is-active-inputactive" class="product_radio-size_label w-form-label" for="{{ input_id }}">{{ value | escape }}</span>
+                                </label>
+                              {%- endfor -%}
+                            </div>
+                          </div>
+                          {%- if section.settings.size_guide_url != blank -%}
+                            <a href="{{ section.settings.size_guide_url }}" class="text-style-link">Size Guide</a>
+                          {%- endif -%}
+                        {%- else -%}
+                          <div class="product_radio-length_component">
+                            <div class="product_label">
+                              <div>{{ option.name | escape }}:</div>
+                              <div class="text-weight-bold" data-option-label="{{ option.position }}">{{ current_value | escape }}</div>
+                            </div>
+                            <div role="radiogroup" class="product_radio-length_group">
+                              {%- for value in option.values -%}
+                                {%- assign input_id = section.id | append: '-opt' | append: option.position | append: '-' | append: forloop.index -%}
+                                <label class="product_radio-length_field{% if value == current_value %} is-active-inputactive{% endif %} w-radio">
+                                  <div class="w-form-formradioinput w-form-formradioinput--inputType-custom product_radio-length_button w-radio-input{% if value == current_value %} w--redirected-checked{% endif %}"></div>
+                                  <input type="radio" name="option-{{ option.position }}" id="{{ input_id }}" value="{{ value | escape }}" data-option-input="{{ option.position }}" {% if value == current_value %}checked{% endif %} style="opacity:0;position:absolute;z-index:-1">
+                                  <span fs-inputactive-class="is-active-inputactive" class="product_radio-length_label w-form-label" for="{{ input_id }}">{{ value | escape }}</span>
+                                </label>
+                              {%- endfor -%}
+                            </div>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+
+                      <div class="product_inputcounter_component">
+                        <div class="product_inputcounter_embed w-embed w-script">
+                          <script>(()=>{var t="https://cdn.jsdelivr.net/npm/@finsweet/attributes-inputcounter@1/inputcounter.js",e=document.querySelector(`script[src="${t}"]`);e||(e=document.createElement("script"),e.async=!0,e.src=t,document.head.append(e));})();</script>
+                        </div>
+                        <label for="quantity-{{ section.id }}">Qty:</label>
+                        <div class="product_inputcounter_wrapper">
+                          <div aria-controls="quantity-{{ section.id }}" fs-inputcounter-element="decrement" role="button" aria-label="Decrement input value" tabindex="0" class="product_inputcounter_button">
+                            <div class="icon-embed-xsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 11H19V13H5V11Z" fill="currentColor"></path></svg></div>
+                          </div>
+                          <input fs-inputcounter-element="input" class="product_inputcounter_input w-input" fs-inputcounter-initial="1" maxlength="256" name="quantity" min="1" placeholder="" type="number" id="quantity-{{ section.id }}" value="1" required>
+                          <div aria-controls="quantity-{{ section.id }}" fs-inputcounter-element="increment" role="button" aria-label="Increment input value" tabindex="0" class="product_inputcounter_button">
+                            <div class="icon-embed-xsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 11H13V5H11V11H5V13H11V19H13V13H19V11Z" fill="currentColor"></path></svg></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="product_price_wrap">
+                        <label>Total:</label>
+                        <div class="product_price_wrap-bottom">
+                          <div class="text-size-tiny">{{ 'products.product.tax_shipping_message' | t | default: 'Tax included. Shipping calculated at checkout.' }}</div>
+                          <div class="heading-style-h4" data-total-price>{{ current_variant.price | money }}</div>
+                        </div>
+                      </div>
+
+                      <div class="button-group is-shop">
+                        {{ form | payment_button }}
+                        <button type="submit" name="add" class="button is-submit is-full" {% unless current_variant.available %}disabled{% endunless %} data-add-button>
+                          <div class="button-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 13 13" fill="none" aria-hidden="true"><circle cx="6.5" cy="6.5" r="6.5" fill="currentColor"></circle></svg></div>
+                          <div data-add-button-label>{% if current_variant.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</div>
+                        </button>
+                      </div>
+
+                      <div class="product_component_footer">
+                        {%- if section.settings.returns_message != blank -%}
+                          <div class="text-size-tiny text-color-secondary">{{ section.settings.returns_message }}</div>
+                        {%- endif -%}
+                        {%- if section.settings.more_payment_options_url != blank -%}
+                          <a href="{{ section.settings.more_payment_options_url }}" class="text-size-tiny text-color-secondary">More Payment Options</a>
+                        {%- endif -%}
+                      </div>
+                    {%- endform -%}
+                  </div>
+                </div>
+              </div>
+
+              {%- comment -%} Variant data + selection JS scoped per section {%- endcomment -%}
+              <script type="application/json" data-variant-data>
+                {{ product.variants | json }}
+              </script>
+              <script>
+              (function () {
+                const root = document.getElementById('shopify-section-{{ section.id }}');
+                if (!root) return;
+                const variants = JSON.parse(root.querySelector('[data-variant-data]').textContent);
+                const variantIdInput = root.querySelector('[data-variant-id-input]');
+                const priceDisplay = root.querySelector('[data-price-display]');
+                const totalDisplay = root.querySelector('[data-total-price]');
+                const addBtn = root.querySelector('[data-add-button]');
+                const addLabel = root.querySelector('[data-add-button-label]');
+                const optionInputs = [...root.querySelectorAll('[data-option-input]')];
+                const optionLabels = root.querySelectorAll('[data-option-label]');
+                const moneyFormat = (window.Shopify && Shopify.money_format) || '${{amount}}';
+
+                function formatMoney(cents) {
+                  // crude default; Shopify CDN normally serves money.js — fall back if missing
+                  if (window.Shopify && Shopify.formatMoney) return Shopify.formatMoney(cents, moneyFormat);
+                  return '$' + (cents / 100).toFixed(2);
+                }
+
+                function currentSelection() {
+                  const positions = [...new Set(optionInputs.map(i => i.dataset.optionInput))];
+                  return positions.map(pos => {
+                    const checked = optionInputs.find(i => i.dataset.optionInput === pos && i.checked);
+                    return checked ? checked.value : null;
+                  });
+                }
+
+                function findVariant(options) {
+                  return variants.find(v => {
+                    return v.options.every((opt, idx) => opt === options[idx]);
+                  });
+                }
+
+                function update() {
+                  const selection = currentSelection();
+                  optionLabels.forEach(label => {
+                    const pos = label.dataset.optionLabel;
+                    const checked = optionInputs.find(i => i.dataset.optionInput === pos && i.checked);
+                    if (checked) label.textContent = checked.value;
+                  });
+                  const variant = findVariant(selection);
+                  if (!variant) {
+                    addBtn.setAttribute('disabled', 'disabled');
+                    if (addLabel) addLabel.textContent = 'UNAVAILABLE';
+                    return;
+                  }
+                  variantIdInput.value = variant.id;
+                  if (priceDisplay) priceDisplay.textContent = formatMoney(variant.price);
+                  if (totalDisplay) totalDisplay.textContent = formatMoney(variant.price);
+                  if (variant.available) {
+                    addBtn.removeAttribute('disabled');
+                    if (addLabel) addLabel.textContent = 'ADD TO CART';
+                  } else {
+                    addBtn.setAttribute('disabled', 'disabled');
+                    if (addLabel) addLabel.textContent = 'SOLD OUT';
+                  }
+                  // Update URL with variant param so refresh keeps selection
+                  if (history.replaceState) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('variant', variant.id);
+                    history.replaceState({}, '', url);
+                  }
+                }
+
+                optionInputs.forEach(input => input.addEventListener('change', update));
+                update();
+              })();
+              </script>
+            </div>
+          </div>
+        </div>
+      </section>
+
+{% schema %}
+{
+  "name": "Product (Webflow)",
+  "tag": "section",
+  "class": "shopify-section-main-product-webflow",
+  "settings": [
+    { "type": "header", "content": "Rating" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show star rating", "default": true },
+    { "type": "text", "id": "rating_count_namespace", "label": "Review count metafield namespace", "default": "reviews", "info": "e.g. \"reviews\" if your review app writes product.metafields.reviews.rating_count" },
+    { "type": "text", "id": "rating_count_key", "label": "Review count metafield key", "default": "rating_count" },
+    { "type": "text", "id": "rating_count_fallback", "label": "Fallback review count", "info": "Used when the metafield is empty. Leave blank to hide the count.", "default": "" },
+    { "type": "header", "content": "Description" },
+    { "type": "richtext", "id": "fallback_description", "label": "Fallback description", "info": "Shown if the product itself has no description.", "default": "<p>Hate sticky sunscreen? Meet the original Sparms sleeves. Built with Fusion FlexXP™ Microfibre technology, they keep you cool, protected, and performing under pressure.</p>" },
+    { "type": "header", "content": "Size" },
+    { "type": "url", "id": "size_guide_url", "label": "Size guide link" },
+    { "type": "header", "content": "Footer" },
+    { "type": "text", "id": "returns_message", "label": "Returns message", "default": "Free Unlimited Returns for A$2.99" },
+    { "type": "url", "id": "more_payment_options_url", "label": "More payment options link" }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion row",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Description" },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Detail text for this accordion row.</p>" },
+        { "type": "checkbox", "id": "use_product_description", "label": "Use product description instead of body", "default": false, "info": "If on, this row shows {{ product.description }} regardless of the body field." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Product (Webflow)",
+      "blocks": [
+        { "type": "accordion", "settings": { "heading": "Description", "use_product_description": true } },
+        { "type": "accordion", "settings": { "heading": "Product Details" } },
+        { "type": "accordion", "settings": { "heading": "Sizing" } },
+        { "type": "accordion", "settings": { "heading": "Care" } },
+        { "type": "accordion", "settings": { "heading": "Shipping & Returns" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
