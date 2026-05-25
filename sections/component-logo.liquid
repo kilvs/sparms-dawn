@@ -3,65 +3,56 @@
         <div class="hide w-embed w-script">
           <script>
   document.addEventListener('DOMContentLoaded', function() {
-    //Splide Code for socials
-    const slideWidth = 16 * 16; // 16rem in px (assuming 16px base)
+    const slideWidth = 16 * 16;
     const gap = 16;
     const needed = Math.ceil((window.innerWidth * 2) / (slideWidth + gap));
-    new Splide('#logo', {
+    new Splide('#logo-{{ section.id }}', {
       type: 'loop',
       drag: false,
-      gap: '4rem', // 992px and above
+      gap: '4rem',
       autoWidth: true,
       arrows: false,
       pagination: false,
       clones: needed,
       autoScroll: {
-        speed: 0.3,
+        speed: {{ section.settings.scroll_speed | default: 0.3 }},
         pauseOnHover: false,
         pauseOnFocus: false,
       },
       breakpoints: {
         992: {
-          gap: '1rem', // below 992px
+          gap: '1rem',
         },
       },
     }).mount(window.splide.Extensions);
   });
 </script>
         </div>
-        <div id="logo" class="splide">
+        <div id="logo-{{ section.id }}" class="splide">
           <div class="splide__track">
             <div class="splide__list">
-              <div class="splide__slide">
-                <div class="home_logo_item"><img loading="lazy" src="{{ 'compression.svg' | asset_url }}" alt="" class="home_logo_icon">
-                  <div class="heading-style-h3">compression</div>
+              {%- for block in section.blocks -%}
+                <div class="splide__slide" {{ block.shopify_attributes }}>
+                  <div class="home_logo_item">
+                    {%- if block.settings.icon != blank -%}
+                      {{ block.settings.icon | image_url: width: 200 | image_tag:
+                        loading: 'lazy',
+                        class: 'home_logo_icon',
+                        alt: block.settings.label
+                      }}
+                    {%- else -%}
+                      <img loading="lazy" src="{{ 'compression.svg' | asset_url }}" alt="" class="home_logo_icon">
+                    {%- endif -%}
+                    <div class="heading-style-h3">{{ block.settings.label | escape }}</div>
+                  </div>
                 </div>
-              </div>
-              <div class="splide__slide">
-                <div class="home_logo_item"><img loading="lazy" src="{{ 'Unisex.svg' | asset_url }}" alt="" class="home_logo_icon">
-                  <div class="heading-style-h3">unisex</div>
+              {%- else -%}
+                <div class="splide__slide">
+                  <div class="home_logo_item">
+                    <div class="heading-style-h3">Add badge blocks in the theme editor</div>
+                  </div>
                 </div>
-              </div>
-              <div class="splide__slide">
-                <div class="home_logo_item"><img loading="lazy" src="{{ 'Light-Weight.svg' | asset_url }}" alt="" class="home_logo_icon">
-                  <div class="heading-style-h3">light-weight</div>
-                </div>
-              </div>
-              <div class="splide__slide">
-                <div class="home_logo_item"><img loading="lazy" src="{{ 'Cooling.svg' | asset_url }}" alt="" class="home_logo_icon">
-                  <div class="heading-style-h3">cooling</div>
-                </div>
-              </div>
-              <div class="splide__slide">
-                <div class="home_logo_item"><img loading="lazy" src="{{ 'Quick-Dry.svg' | asset_url }}" alt="" class="home_logo_icon">
-                  <div class="heading-style-h3">quick dry</div>
-                </div>
-              </div>
-              <div class="splide__slide">
-                <div class="home_logo_item"><img loading="lazy" src="{{ 'UPF.svg' | asset_url }}" alt="" class="home_logo_icon">
-                  <div class="heading-style-h3">upf 50+</div>
-                </div>
-              </div>
+              {%- endfor -%}
             </div>
           </div>
         </div>
@@ -74,20 +65,31 @@
   "tag": "section",
   "class": "shopify-section-component-logo",
   "settings": [
+    { "type": "checkbox", "id": "show_section", "label": "Show this section", "default": true },
+    { "type": "range", "id": "scroll_speed", "label": "Auto-scroll speed", "min": 0.1, "max": 2, "step": 0.1, "default": 0.3, "info": "Lower = slower. 0.3 matches Webflow source." }
+  ],
+  "blocks": [
     {
-      "type": "checkbox",
-      "id": "show_section",
-      "label": "Show this section",
-      "default": true
-    },
-    {
-      "type": "paragraph",
-      "content": "Auto-scrolling badge row (compression, unisex, light-weight, cooling, quick-dry, UPF 50+). Edit the image and label pairs by editing this section directly — Splide instance config lives at the top of the section."
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon", "info": "SVG recommended. Leave empty to fall back to assets/compression.svg." },
+        { "type": "text", "id": "label", "label": "Label", "default": "feature" }
+      ]
     }
   ],
+  "max_blocks": 20,
   "presets": [
     {
-      "name": "Logo strip"
+      "name": "Logo strip",
+      "blocks": [
+        { "type": "badge", "settings": { "label": "compression" } },
+        { "type": "badge", "settings": { "label": "unisex" } },
+        { "type": "badge", "settings": { "label": "light-weight" } },
+        { "type": "badge", "settings": { "label": "cooling" } },
+        { "type": "badge", "settings": { "label": "quick dry" } },
+        { "type": "badge", "settings": { "label": "upf 50+" } }
+      ]
     }
   ]
 }

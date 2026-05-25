@@ -114,10 +114,17 @@
     },
     "feature": {
       "type": "component-feature",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "Proven SPF 50+ Protection", "body": "<p class=\"paragraph\">Independently certified and rigorously tested every year for ultimate UV defence.</p>", "alignment": "left" } },
+        "f2": { "type": "feature", "settings": { "title": "Stay Cool Under Pressure",   "body": "<p class=\"paragraph\">Moisture-wicking premium fabrics deliver cooling, effortless fit from the moment you put it on.</p>", "alignment": "right" } }
+      },
+      "block_order": ["f1", "f2"],
       "settings": {
         "show_section": true,
         "heading": "the sporting advantage",
-        "description": "<p>The Original sun sleeve, and the choice of champions, Sparms is trusted by elite athletes worldwide. Our lightweight, breathable fabrics are designed to enhance, not limit. Get the best protection for your every day.</p>"
+        "description": "<p>The Original sun sleeve, and the choice of champions, Sparms is trusted by elite athletes worldwide. Our lightweight, breathable fabrics are designed to enhance, not limit. Get the best protection for your every day.</p>",
+        "primary_label": "View collection",
+        "secondary_label": "Shop All"
       }
     },
     "faqs": {
@@ -163,8 +170,22 @@
     },
     "community": {
       "type": "component-community",
+      "blocks": {
+        "i1": { "type": "image" },
+        "i2": { "type": "image" },
+        "i3": { "type": "image" },
+        "i4": { "type": "image" },
+        "i5": { "type": "image" },
+        "i6": { "type": "image" },
+        "i7": { "type": "image" },
+        "i8": { "type": "image" }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"],
       "settings": {
-        "show_section": true
+        "show_section": true,
+        "heading": "OUR community",
+        "subheading": "Real athletes. Real protection. Real stories.",
+        "scroll_speed": 0.3
       }
     }
   },

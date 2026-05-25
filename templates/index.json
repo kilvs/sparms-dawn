@@ -4,45 +4,115 @@
       "type": "home-01-hero",
       "settings": {
         "show_section": true,
+        "heading": "your defence layer",
+        "body": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.</p>",
+        "button_label": "Shop The Collection",
         "show_intro_animation": true
       }
     },
     "logo": {
       "type": "component-logo",
+      "blocks": {
+        "b1": { "type": "badge", "settings": { "label": "compression" } },
+        "b2": { "type": "badge", "settings": { "label": "unisex" } },
+        "b3": { "type": "badge", "settings": { "label": "light-weight" } },
+        "b4": { "type": "badge", "settings": { "label": "cooling" } },
+        "b5": { "type": "badge", "settings": { "label": "quick dry" } },
+        "b6": { "type": "badge", "settings": { "label": "upf 50+" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
       "settings": {
-        "show_section": true
+        "show_section": true,
+        "scroll_speed": 0.3
       }
     },
     "product-slider": {
       "type": "home-02-product-slider",
       "settings": {
-        "show_section": true
+        "show_section": true,
+        "heading": "LOCK IN PERFORMANCE",
+        "description": "<p>Discover the next generation in skin care that plays as hard as you do.</p>",
+        "products_to_show": 8,
+        "show_size_picker": true,
+        "show_color_swatches": true
       }
     },
     "feature": {
       "type": "component-feature",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "Proven SPF 50+ Protection", "body": "<p class=\"paragraph\">Claiming to have the best sun sleeves is bold, but we back it up. Every year, our products are independently certified and rigorously tested to give you the ultimate UV defence.</p>", "alignment": "left" } },
+        "f2": { "type": "feature", "settings": { "title": "Stay Cool Under Pressure", "body": "<p class=\"paragraph\">Our proprietary process harnesses the moisture-wicking power of premium fabrics, delivering a cooling, effortless fit from the moment you put it on.</p>", "alignment": "right" } },
+        "f3": { "type": "feature", "settings": { "title": "The Style in SPF", "body": "<p class=\"paragraph\">Designed for athletes who demand more than just function, our sleeves keep you cool, protected, and looking sharp while you push your limits.</p>", "alignment": "left" } },
+        "f4": { "type": "feature", "settings": { "title": "Built for Every Body", "body": "<p class=\"paragraph\">With a wide range of sizes, every piece stays in place, supporting your performance and letting you focus on the play.</p>", "alignment": "right" } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
       "settings": {
         "show_section": true,
         "heading": "the sporting advantage",
-        "description": "<p>The Original sun sleeve, and the choice of champions, Sparms is trusted by elite athletes worldwide. Our lightweight, breathable fabrics are designed to enhance, not limit. Get the best protection for your every day.</p>"
+        "description": "<p>The Original sun sleeve, and the choice of champions, Sparms is trusted by elite athletes worldwide. Our lightweight, breathable fabrics are designed to enhance, not limit. Get the best protection for your every day.</p>",
+        "primary_label": "View collection",
+        "secondary_label": "Shop All"
       }
     },
     "collection": {
       "type": "component-collection",
+      "blocks": {
+        "c1": { "type": "slide", "settings": { "collection_name": "SP Arms Sun Sleeves 1" } },
+        "c2": { "type": "slide", "settings": { "collection_name": "SP Arms Sun Sleeves 2" } },
+        "c3": { "type": "slide", "settings": { "collection_name": "SP Arms Sun Sleeves 3" } },
+        "c4": { "type": "slide", "settings": { "collection_name": "SP Arms Sun Sleeves 4" } },
+        "c5": { "type": "slide", "settings": { "collection_name": "SP Arms Sun Sleeves 5" } },
+        "c6": { "type": "slide", "settings": { "collection_name": "SP Arms Sun Sleeves 6" } },
+        "c7": { "type": "slide", "settings": { "collection_name": "SP Arms Sun Sleeves 7" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7"],
       "settings": {
-        "show_section": true
+        "show_section": true,
+        "heading": "Collections"
       }
     },
     "ambassadors": {
       "type": "component-ambassadors",
+      "blocks": {
+        "a1":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a2":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a3":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a4":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a5":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a6":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a7":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a8":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a9":  { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a10": { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a11": { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } },
+        "a12": { "type": "ambassador", "settings": { "name": "Angel Yin",   "sport": "Golf",       "country_code": "AUS" } }
+      },
+      "block_order": ["a1","a2","a3","a4","a5","a6","a7","a8","a9","a10","a11","a12"],
       "settings": {
-        "show_section": true
+        "show_section": true,
+        "heading": "OUR AMBASSADORS",
+        "description": "<p>A powerhouse collective from every corner of sport, our ambassadors wear Sparms with pride in training, on the field, and at every competition.</p>"
       }
     },
     "testimonial": {
       "type": "component-testimonial",
+      "blocks": {
+        "t1":  { "type": "testimonial", "settings": { "name": "Alyssa Healy",       "position": "Australian Women's Cricket Captain",        "quote": "<p>\"I was actually a customer before I became a part of SParms Cricket. Using SParms in my own training and daily life, I realised everyone needed this so when SParms reached out, we got the ball rolling as soon as we could.\"</p>" } },
+        "t2":  { "type": "testimonial", "settings": { "name": "Mitchell Starc",     "position": "Australian International Cricketer",         "quote": "<p>\"Cricket demands performance regardless of weather, with most of it under the scorching sun so protecting our skin is paramount. Partnering with SParms Cricket was a natural choice for us.\"</p>" } },
+        "t3":  { "type": "testimonial", "settings": { "name": "Marina Alex",        "position": "Golf Professional (LPGA), LPGA Winner",      "quote": "<p>\"They are a fantastic product, I've been wearing them for few seasons to protect my skin from the sun. Their shawls are absolutely incredible, super comfortable, you don't even know you have them on.\"</p>" } },
+        "t4":  { "type": "testimonial", "settings": { "name": "Karrie Webb",        "position": "Golf Professional (LPGA), Previous World #1", "quote": "<p>\"After a very hot &amp; sunny start to season I'm grateful for my @SParms_UPF50. Wish I had been wearing this since I was a kid. Huge difference.\"</p>" } },
+        "t5":  { "type": "testimonial", "settings": { "name": "Mo Martin",          "position": "Golf Professional (LPGA), LPGA Winner",      "quote": "<p>\"I've been on the LPGA for 8 years and I've been wearing SParms for a good majority of that. It has kept me happy and healthy under the sun.\"</p>" } },
+        "t6":  { "type": "testimonial", "settings": { "name": "So Yeon Ryu",        "position": "Golf Professional (LPGA), LPGA Winner",      "quote": "<p>\"I have zero idea of how I'm gonna protect my skin without SParms Sun Protection. SParms is an easy and safe way to protect your skin from the sun.\"</p>" } },
+        "t7":  { "type": "testimonial", "settings": { "name": "Brittany Lincicome", "position": "Golf Professional (LPGA), LPGA Winner",      "quote": "<p>\"Thank you SOOOO much to @SParms_UPF50 for my new shawl sleeves. Best sun protection ever!!!!! #Love\"</p>" } },
+        "t8":  { "type": "testimonial", "settings": { "name": "Zack Guthrie",       "position": "Professional AFL Player",                    "quote": "<p>\"The Sparms products help to keep me cool and comfortable during the hot summer months. It provides great protection whilst allowing me to perform at my best.\"</p>" } },
+        "t9":  { "type": "testimonial", "settings": { "name": "Jesse Levine",       "position": "Former Professional Tennis Player",          "quote": "<p>\"After playing professional tennis for 10 years, the SParms keep me protected from the sun with the most comfort and coolness.\"</p>" } },
+        "t10": { "type": "testimonial", "settings": { "name": "Chloe Stewart",      "position": "Australian Lawn Bowls Champion",             "quote": "<p>\"SParms are essential every time I go on the bowls green. Super comfortable, lightweight, and always keep me cool!\"</p>" } }
+      },
+      "block_order": ["t1","t2","t3","t4","t5","t6","t7","t8","t9","t10"],
       "settings": {
-        "show_section": true
+        "show_section": true,
+        "heading": "THE TOP CHOICE OF ELITE SPORTING CHAMPIONS",
+        "description": "<p>Hear from the sporting champions who trust Sparms.</p>"
       }
     },
     "cta": {
@@ -56,8 +126,22 @@
     },
     "community": {
       "type": "component-community",
+      "blocks": {
+        "i1": { "type": "image" },
+        "i2": { "type": "image" },
+        "i3": { "type": "image" },
+        "i4": { "type": "image" },
+        "i5": { "type": "image" },
+        "i6": { "type": "image" },
+        "i7": { "type": "image" },
+        "i8": { "type": "image" }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8"],
       "settings": {
-        "show_section": true
+        "show_section": true,
+        "heading": "OUR community",
+        "subheading": "Real athletes. Real protection. Real stories.",
+        "scroll_speed": 0.3
       }
     }
   },

@@ -1,61 +1,77 @@
 {%- if section.settings.show_section -%}
+{%- assign mp4_url = section.settings.video_mp4 | default: '' -%}
+{%- if mp4_url == '' -%}{%- assign mp4_url = 'Screen-Recording-2026-02-24-at-9.42.20-am_mp4.mp4' | asset_url -%}{%- endif -%}
+{%- assign webm_url = section.settings.video_webm | default: '' -%}
+{%- if webm_url == '' -%}{%- assign webm_url = 'Screen-Recording-2026-02-24-at-9.42.20-am_webm.webm' | asset_url -%}{%- endif -%}
+{%- if section.settings.poster_image != blank -%}
+  {%- assign poster_url = section.settings.poster_image | image_url: width: 1920 -%}
+{%- else -%}
+  {%- assign poster_url = 'Screen-Recording-2026-02-24-at-9.42.20-am_poster.0000000.jpg' | asset_url -%}
+{%- endif -%}
       <section class="home_hero_section">
         <div class="home_hero_load">
           <div class="home_hero_object-wrap">
             <div class="home_hero_blue-dot"></div>
           </div>
           <div class="home_logo_svg-wrap">
-            <div class="icon-embed-large w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 207 193" fill="none" preserveaspectratio="xMidYMid meet" aria-hidden="true" role="img">
-                <g clip-path="url(#clip0_14343_16575)">
+            <div class="icon-embed-large w-embed">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 207 193" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true" role="img">
+                <g clip-path="url(#clip0_14343_16575-{{ section.id }})">
                   <path d="M205.779 80.6291H95.566C92.9359 80.6291 90.8048 78.4977 90.8048 75.8672C90.8048 73.2367 92.9359 71.1053 95.566 71.1053H103.658C123.971 71.1053 142.739 60.2661 152.901 42.6686L168.351 15.9046C160.131 9.27431 150.885 3.88509 140.884 0L125.056 27.4115C115.474 44.0108 91.5264 44.0108 81.9435 27.4115L66.1159 0C56.1149 3.88509 46.8692 9.27431 38.6485 15.9046L76.009 80.6291H1.22062C0.418114 85.8025 0 91.104 0 96.5C0 101.896 0.418114 107.197 1.22062 112.371H111.434C114.064 112.371 116.195 114.502 116.195 117.133C116.195 119.763 114.064 121.895 111.434 121.895H103.342C83.0293 121.895 64.2614 132.734 54.0985 150.331L38.6485 177.095C46.8692 183.726 56.1149 189.115 66.1159 193L81.9435 165.589C91.5264 148.989 115.474 148.989 125.056 165.589L140.884 193C150.885 189.115 160.131 183.726 168.351 177.095L130.991 112.371H205.786C206.589 107.197 207.007 101.896 207.007 96.5C207.007 91.104 206.589 85.8025 205.786 80.6291H205.779Z" fill="currentColor"></path>
                 </g>
                 <defs>
-                  <clippath id="clip0_14343_16575">
+                  <clipPath id="clip0_14343_16575-{{ section.id }}">
                     <rect width="207" height="193" fill="currentColor"></rect>
-                  </clippath>
+                  </clipPath>
                 </defs>
-              </svg></div>
+              </svg>
+            </div>
           </div>
         </div>
-        <div class="image-overlay"></div>
-        <div data-poster-url="videos/Screen-Recording-2026-02-24-at-9.42.20-am_poster.0000000.jpg" data-video-urls="videos/Screen-Recording-2026-02-24-at-9.42.20-am_mp4.mp4,videos/Screen-Recording-2026-02-24-at-9.42.20-am_webm.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="home_hero_bg-video w-background-video w-background-video-atom"><video id="ae717753-4d1f-7ab2-68a1-67ce542720d7-video" autoplay="" loop="" style="background-image:url(&quot;videos/Screen-Recording-2026-02-24-at-9.42.20-am_poster.0000000.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
-            <source src="videos/Screen-Recording-2026-02-24-at-9.42.20-am_mp4.mp4" data-wf-ignore="true">
-            <source src="videos/Screen-Recording-2026-02-24-at-9.42.20-am_webm.webm" data-wf-ignore="true">
-          </video><noscript>
+        <div class="image-overlay"{% if section.settings.overlay_image != blank %} style="background-image: url('{{ section.settings.overlay_image | image_url: width: 2000 }}'); background-size: cover; background-position: center;"{% endif %}></div>
+        <div data-poster-url="{{ poster_url }}" data-video-urls="{{ mp4_url }},{{ webm_url }}" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="home_hero_bg-video w-background-video w-background-video-atom">
+          <video id="hero-bg-{{ section.id }}" autoplay="" loop="" style="background-image:url('{{ poster_url }}')" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
+            <source src="{{ mp4_url }}" data-wf-ignore="true">
+            <source src="{{ webm_url }}" data-wf-ignore="true">
+          </video>
+          <noscript>
             <style>
+[data-wf-bgvideo-fallback-img] { display: none; }
+@media (prefers-reduced-motion: reduce) {
   [data-wf-bgvideo-fallback-img] {
-    display: none;
+    position: absolute;
+    z-index: -100;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
-  @media (prefers-reduced-motion: reduce) {
-    [data-wf-bgvideo-fallback-img] {
-      position: absolute;
-      z-index: -100;
-      display: inline-block;
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-  }</style><img data-wf-bgvideo-fallback-img="true" src="videos/Screen-Recording-2026-02-24-at-9.42.20-am_poster.0000000.jpg" alt="">
+}
+            </style>
+            <img data-wf-bgvideo-fallback-img="true" src="{{ poster_url }}" alt="">
           </noscript>
-          <div aria-live="polite"><button type="button" data-w-bg-video-control="true" aria-controls="ae717753-4d1f-7ab2-68a1-67ce542720d7-video" class="w-backgroundvideo-backgroundvideoplaypausebutton w-background-video--control"><span><img src="https://uploads-ssl.webflow.com/6022af993a6b2191db3ed10c/628299f8aa233b83918e24fd_Pause.svg" loading="lazy" alt="Pause video"></span><span hidden=""><img loading="lazy" alt="Play video" src="https://uploads-ssl.webflow.com/6022af993a6b2191db3ed10c/628298b20ae0236682d4b87f_Play-24.svg"></span></button></div>
         </div>
         <div class="padding-global">
           <div class="container-large">
             <div class="home_hero_component padding-section-large">
               <div class="home_hero_content">
                 <div class="max-width-medium">
-                  <h1 class="text-color-white">your defence layer</h1>
+                  <h1 class="text-color-white">{{ section.settings.heading | escape }}</h1>
                   <div class="spacer-small"></div>
-                  <p class="text-color-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                  <p class="text-color-white">{{ section.settings.body }}</p>
                 </div>
-                <div id="w-node-_89ad34a6-fb8a-b947-e7d1-a28cc24ea955-6832ed3c" class="button-group">
-                  <a href="#" class="button is-secondary is-icon is-alternate w-inline-block">
-                    <div class="button-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 13 13" fill="none" preserveaspectratio="xMidYMid meet" aria-hidden="true" role="img">
-                        <circle cx="6.5" cy="6.5" r="6.5" fill="currentColor"></circle>
-                      </svg></div>
-                    <div>Shop The Collection</div>
-                  </a>
-                </div>
+                {%- if section.settings.button_label != blank -%}
+                  <div class="button-group">
+                    <a href="{{ section.settings.button_url | default: routes.collections_url }}" class="button is-secondary is-icon is-alternate w-inline-block">
+                      <div class="button-icon w-embed">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 13 13" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true" role="img">
+                          <circle cx="6.5" cy="6.5" r="6.5" fill="currentColor"></circle>
+                        </svg>
+                      </div>
+                      <div>{{ section.settings.button_label | escape }}</div>
+                    </a>
+                  </div>
+                {%- endif -%}
               </div>
             </div>
           </div>
@@ -71,34 +87,13 @@ window.Webflow.push(function () {
     return;
   }
   sessionStorage.setItem('introPlayed', 'true');
-  // Hide immediately before any frame renders
   gsap.set('.home_logo_svg-wrap', { opacity: 0 });
   const tl = gsap.timeline();
-  // Blue dot pops in
-  tl.fromTo('.home_hero_blue-dot',
-    { scale: 0, opacity: 1 },
-    { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' },
-  0)
-  // Blue dot fades out
-  .fromTo('.home_hero_blue-dot',
-    { opacity: 1 },
-    { opacity: 0, duration: 0.5 },
-  1.5)
-  // Logo fades in, holds scale: 1
-  .fromTo('.home_logo_svg-wrap',
-    { opacity: 0, scale: 1 },
-    { opacity: 1, scale: 1, duration: 0.5 },
-  1.5)
-  // Logo scales from 1 to 100
-  .fromTo('.home_logo_svg-wrap',
-    { scale: 1 },
-    { scale: 100, duration: 2.5, ease: 'linear' },
-  3.0)
-  // Loader fades out
-  .fromTo('.home_hero_load',
-    { autoAlpha: 1 },
-    { autoAlpha: 0, duration: 0.75 },
-  3.75);
+  tl.fromTo('.home_hero_blue-dot',   { scale: 0, opacity: 1 },        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }, 0)
+    .fromTo('.home_hero_blue-dot',   { opacity: 1 },                  { opacity: 0, duration: 0.5 },                                  1.5)
+    .fromTo('.home_logo_svg-wrap',   { opacity: 0, scale: 1 },        { opacity: 1, scale: 1, duration: 0.5 },                        1.5)
+    .fromTo('.home_logo_svg-wrap',   { scale: 1 },                    { scale: 100, duration: 2.5, ease: 'linear' },                  3.0)
+    .fromTo('.home_hero_load',       { autoAlpha: 1 },                { autoAlpha: 0, duration: 0.75 },                               3.75);
 });
 </script>
 {%- endif -%}
@@ -110,19 +105,21 @@ window.Webflow.push(function () {
   "tag": "section",
   "class": "shopify-section-home-hero",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_section",
-      "label": "Show this section",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_intro_animation",
-      "label": "Play one-time intro animation",
-      "default": true,
-      "info": "Logo zoom intro on first visit per session."
-    }
+    { "type": "checkbox", "id": "show_section", "label": "Show this section", "default": true },
+    { "type": "header", "content": "Copy" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "your defence layer" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.</p>" },
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop The Collection", "info": "Leave blank to hide." },
+    { "type": "url", "id": "button_url", "label": "Button URL" },
+    { "type": "header", "content": "Background video" },
+    { "type": "image_picker", "id": "poster_image", "label": "Poster image", "info": "Shown until the video loads. Falls back to the Webflow export poster." },
+    { "type": "url", "id": "video_mp4", "label": "MP4 URL", "info": "Direct CDN/asset URL to the .mp4 file. Falls back to the export's bundled video in assets/." },
+    { "type": "url", "id": "video_webm", "label": "WebM URL", "info": "Optional fallback source for browsers that prefer WebM." },
+    { "type": "header", "content": "Overlay" },
+    { "type": "image_picker", "id": "overlay_image", "label": "Overlay image", "info": "Optional image overlay between video and content (e.g. brand pattern). Webflow source ships an empty overlay div." },
+    { "type": "header", "content": "Intro animation" },
+    { "type": "checkbox", "id": "show_intro_animation", "label": "Play one-time intro animation", "default": true, "info": "Logo zoom intro on first visit per session (uses GSAP timeline)." }
   ],
   "presets": [
     {

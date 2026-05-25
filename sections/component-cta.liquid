@@ -1,21 +1,29 @@
 {%- if section.settings.show_section -%}
-      <section class="component_cta_section">
+      <section class="component_cta_section"{% if section.settings.background_image != blank %} style="background-image: url('{{ section.settings.background_image | image_url: width: 2200 }}'); background-size: cover; background-position: center;"{% endif %}>
         <div class="padding-global padding-section-medium">
           <div class="container-large">
             <div class="component_cta_wrapper">
               <div class="component_cta_content_wrapper">
+                {%- if section.settings.eyebrow != blank -%}
+                  <div class="component_cta_eyebrow text-size-small text-weight-semibold">{{ section.settings.eyebrow | escape }}</div>
+                {%- endif -%}
                 <h2>{{ section.settings.heading | escape }}</h2>
                 <div class="max-width-xsmall">
                   {{ section.settings.body }}
                 </div>
               </div>
-              <div class="component_cta_button_wrapper">
-                <a href="{{ section.settings.button_url | default: routes.collections_url }}" class="button is-secondary is-icon is-alternate w-inline-block">
-                  <div class="button-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 13 13" fill="none" preserveaspectratio="xMidYMid meet" aria-hidden="true" role="img">
-                      <circle cx="6.5" cy="6.5" r="6.5" fill="currentColor"></circle>
-                    </svg></div>
-                  <div>{{ section.settings.button_label | escape }}</div></a>
-              </div>
+              {%- if section.settings.button_label != blank -%}
+                <div class="component_cta_button_wrapper">
+                  <a href="{{ section.settings.button_url | default: routes.collections_url }}" class="button is-secondary is-icon is-alternate w-inline-block">
+                    <div class="button-icon w-embed">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 13 13" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true" role="img">
+                        <circle cx="6.5" cy="6.5" r="6.5" fill="currentColor"></circle>
+                      </svg>
+                    </div>
+                    <div>{{ section.settings.button_label | escape }}</div>
+                  </a>
+                </div>
+              {%- endif -%}
             </div>
           </div>
         </div>
@@ -28,43 +36,16 @@
   "tag": "section",
   "class": "shopify-section-component-cta",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_section",
-      "label": "Show this section",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Copy"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "PERFORM UNDER PRESSURE with THE ORIGINAL SUN SLEEVE"
-    },
-    {
-      "type": "richtext",
-      "id": "body",
-      "label": "Body",
-      "default": "<p>Join thousands of athletes protecting their skin with our high-performance sun sleeves.</p>"
-    },
-    {
-      "type": "header",
-      "content": "Button"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button label",
-      "default": "SHOP ALL"
-    },
-    {
-      "type": "url",
-      "id": "button_url",
-      "label": "Button URL"
-    }
+    { "type": "checkbox", "id": "show_section", "label": "Show this section", "default": true },
+    { "type": "header", "content": "Copy" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Small line above the heading (optional)." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "PERFORM UNDER PRESSURE with THE ORIGINAL SUN SLEEVE" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Join thousands of athletes protecting their skin with our high-performance sun sleeves.</p>" },
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "SHOP ALL", "info": "Leave blank to hide the button." },
+    { "type": "url", "id": "button_url", "label": "Button URL" },
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image", "info": "Optional — placed behind the wrapper with cover/center positioning." }
   ],
   "presets": [
     {
