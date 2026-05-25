@@ -128,17 +128,61 @@
                     </div>
                   {%- endfor -%}
                 {%- else -%}
-                  <div class="swiper-slide is-product">
-                    <div class="component_product-list_card">
-                      <div class="component_product-list_img-wrap">
-                        <img sizes="(max-width: 648px) 100vw, 648px" srcset="{{ 'Product-Image-placeholder-p-500.webp' | asset_url }} 500w, {{ 'Product-Image-placeholder.webp' | asset_url }} 648w" alt="" src="{{ 'Product-Image-placeholder.webp' | asset_url }}" loading="lazy" class="component_product-list_img">
-                      </div>
-                      <div class="component_product-list_content">
-                        <div class="text-size-medium text-weight-semibold">Pick a collection in the theme editor</div>
-                        <div class="text-size-medium">$—</div>
+                  {%- comment -%} No collection picked (or empty) — render 6 Webflow placeholder cards so the section previews as designed. {%- endcomment -%}
+                  {%- assign placeholder_count = section.settings.placeholder_count | default: 6 -%}
+                  {%- for i in (1..placeholder_count) -%}
+                    <div class="swiper-slide is-product">
+                      <div class="component_product-list_card">
+                        <div class="component_product-list_img-wrap">
+                          <a href="{{ routes.collections_url }}" class="component_product-list_ilink w-inline-block">
+                            <img sizes="(max-width: 648px) 100vw, 648px" srcset="{{ 'Product-Image-placeholder-p-500.webp' | asset_url }} 500w, {{ 'Product-Image-placeholder.webp' | asset_url }} 648w" alt="" src="{{ 'Product-Image-placeholder.webp' | asset_url }}" loading="lazy" class="component_product-list_img">
+                          </a>
+                          {%- if section.settings.show_size_picker -%}
+                            <div class="component_product-list_size-wrapper">
+                              <div class="text-size-small text-color-white">Select a Size</div>
+                              <div class="component_product-list_size-list">
+                                {%- assign placeholder_sizes = 'XS,S,M,L,XL,XXL' | split: ',' -%}
+                                {%- for label in placeholder_sizes -%}
+                                  <button type="button" class="component_product-list_size" disabled>
+                                    <div>{{ label }}</div>
+                                  </button>
+                                {%- endfor -%}
+                              </div>
+                            </div>
+                          {%- endif -%}
+                        </div>
+                        <div class="component_product-list_content">
+                          <a href="{{ routes.collections_url }}" class="w-inline-block">
+                            <div class="text-size-medium text-weight-semibold">Product Name Here</div>
+                          </a>
+                          <div class="text-size-medium">$49</div>
+                          {%- if section.settings.show_color_swatches -%}
+                            <div class="component_product-list_colors">
+                              <button type="button" class="component_product-list_color-wrap" disabled aria-label="Black">
+                                <div class="component_product-list_color"></div>
+                              </button>
+                              <button type="button" class="component_product-list_color-wrap is-grey" disabled aria-label="White">
+                                <div class="component_product-list_color is-white"></div>
+                              </button>
+                              <button type="button" class="component_product-list_color-wrap is-grey" disabled aria-label="Grey">
+                                <div class="component_product-list_color is-grey"></div>
+                              </button>
+                            </div>
+                          {%- endif -%}
+                        </div>
+                        <button type="button" class="button is-add-to-cart" disabled aria-label="Placeholder add to cart">
+                          <div class="icon-embed-blogs w-embed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true" role="img">
+                              <path d="M10.5 21C11.3284 21 12 20.3284 12 19.5C12 18.6716 11.3284 18 10.5 18C9.67157 18 9 18.6716 9 19.5C9 20.3284 9.67157 21 10.5 21Z" fill="#0A0A0A"></path>
+                              <path d="M17.5 21C18.3284 21 19 20.3284 19 19.5C19 18.6716 18.3284 18 17.5 18C16.6716 18 16 18.6716 16 19.5C16 20.3284 16.6716 21 17.5 21Z" fill="#0A0A0A"></path>
+                              <path d="M13 13H15V10.01H17.99V8.01003H15V5.03003H13V8.01003H10.01V10.01H13V13Z" fill="black"></path>
+                              <path d="M10 17H18C18.2014 16.9994 18.398 16.938 18.564 16.8238C18.7299 16.7096 18.8575 16.5479 18.93 16.36L21.76 9H19.62L17.31 15H10.67L6.18 4.23C6.02776 3.86507 5.77077 3.55344 5.44149 3.33452C5.11221 3.11559 4.72542 2.99918 4.33 3H2V5H4.33L9.08 16.38C9.15502 16.5626 9.28242 16.719 9.44614 16.8293C9.60986 16.9396 9.80257 16.999 10 17Z" fill="black"></path>
+                            </svg>
+                          </div>
+                        </button>
                       </div>
                     </div>
-                  </div>
+                  {%- endfor -%}
                 {%- endif -%}
               </div>
               <div class="swiper_arrow_wrapper hide-tablet">
@@ -174,10 +218,11 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "LOCK IN PERFORMANCE" },
     { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Discover the next generation in skin care that plays as hard as you do.</p>" },
     { "type": "header", "content": "Products" },
-    { "type": "collection", "id": "collection", "label": "Source collection", "info": "Products from this collection populate the slider." },
+    { "type": "collection", "id": "collection", "label": "Source collection", "info": "Products from this collection populate the slider. Leave blank to show Webflow placeholder cards (useful while building the catalog)." },
     { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 16, "step": 1, "default": 8 },
-    { "type": "checkbox", "id": "show_size_picker", "label": "Show size picker on hover", "default": true, "info": "Renders the product's Size option values as quick-add buttons (uses Dawn cart bridge)." },
-    { "type": "checkbox", "id": "show_color_swatches", "label": "Show color swatches", "default": true, "info": "Renders the product's Color/Colour option values as swatch dots." }
+    { "type": "range", "id": "placeholder_count", "label": "Placeholder cards (when no collection)", "min": 2, "max": 12, "step": 1, "default": 6, "info": "How many demo cards to show before a collection is picked." },
+    { "type": "checkbox", "id": "show_size_picker", "label": "Show size picker on hover", "default": true, "info": "Renders Size option values as quick-add buttons (live products) or placeholder size pills (no collection)." },
+    { "type": "checkbox", "id": "show_color_swatches", "label": "Show color swatches", "default": true, "info": "Renders Color/Colour option values as swatch dots (live products) or 3 demo swatches (no collection)." }
   ],
   "presets": [
     {

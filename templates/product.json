@@ -84,20 +84,16 @@
         "description": "<p>Quick answers to the questions we hear most about Sparms.</p>"
       }
     },
-    "related-products": {
-      "type": "related-products",
+    "product-slider": {
+      "type": "home-02-product-slider",
       "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "columns_desktop": 4,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "padding_top": 36,
-        "padding_bottom": 28
+        "show_section": true,
+        "heading": "LOCK IN PERFORMANCE",
+        "description": "<p>Discover the next generation in skin care that plays as hard as you do.</p>",
+        "products_to_show": 8,
+        "placeholder_count": 6,
+        "show_size_picker": true,
+        "show_color_swatches": true
       }
     },
     "cta": {
@@ -135,7 +131,7 @@
     "reviews",
     "feature",
     "faqs",
-    "related-products",
+    "product-slider",
     "cta",
     "community"
   ]

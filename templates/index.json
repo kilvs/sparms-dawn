@@ -41,8 +41,8 @@
         "show_section": true,
         "heading": "LOCK IN PERFORMANCE",
         "description": "<p>Discover the next generation in skin care that plays as hard as you do.</p>",
-        "collection": "frontpage",
         "products_to_show": 8,
+        "placeholder_count": 6,
         "show_size_picker": true,
         "show_color_swatches": true
       }
