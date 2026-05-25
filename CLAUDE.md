@@ -53,7 +53,7 @@ Webflow wins on shared selectors (e.g. if both define `.button`, Webflow's rules
 
 ## What this repo is
 
-A **hybrid Shopify Online Store 2.0 theme** converted from a Webflow export for **<BRAND>**, augmented with Dawn's commerce templates. Shopify theme files (assets/, config/, layout/, sections/, snippets/, templates/) live at the repo root.
+A **hybrid Shopify Online Store 2.0 theme** converted from a Webflow export for **Sparms**, augmented with Dawn's commerce templates. Shopify theme files (assets/, config/, layout/, sections/, snippets/, templates/) live at the repo root.
 
 - The original Webflow export lives in `webflow-source/` (reference; never deployed).
 - Dawn's source lives in `dawn-source/` (checked-out at the pinned tag; never deployed).
@@ -61,7 +61,7 @@ A **hybrid Shopify Online Store 2.0 theme** converted from a Webflow export for 
 
 The conversion is **visual-parity first for brand pages, modern-commerce first for shop pages**. Webflow CSS/JS/class names/`data-wf-*` attributes are preserved verbatim. Dawn sections/snippets/CSS/JS are preserved verbatim. They coexist via cascade layers — see `DAWN_INTEGRATION.md`.
 
-Bootstrapped from [webflow-to-shopify-dawn-kit](https://github.com/<your-org>/webflow-to-shopify-conversion-kit/tree/main/webflow-to-shopify-dawn-kit).
+Bootstrapped from [webflow-to-shopify-dawn-kit](https://github.com/kilvs/webflow-to-shopify-conversion-kit/tree/main/webflow-to-shopify-dawn-kit).
 
 ---
 

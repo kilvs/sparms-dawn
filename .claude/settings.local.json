@@ -3,7 +3,8 @@
     "allow": [
       "Bash(node \"G:/Work/Github Projects/webflow-to-shopify-conversion-kit/webflow-to-shopify-dawn-kit/scripts/wrap-css-layers.cjs\" /tmp/wrap-test webflow)",
       "Read(//tmp/wrap-test/**)",
-      "Bash(node \"G:/Work/Github Projects/webflow-to-shopify-conversion-kit/webflow-to-shopify-dawn-kit/scripts/wrap-css-layers.cjs\" /tmp/wrap-test webflow && rm -rf /tmp/wrap-test)"
+      "Bash(node \"G:/Work/Github Projects/webflow-to-shopify-conversion-kit/webflow-to-shopify-dawn-kit/scripts/wrap-css-layers.cjs\" /tmp/wrap-test webflow && rm -rf /tmp/wrap-test)",
+      "Bash(git -C \"G:\\\\Work\\\\Github Projects\\\\Shopify - Conversions\\\\sparms-dawn\" remote -v)"
     ]
   }
 }

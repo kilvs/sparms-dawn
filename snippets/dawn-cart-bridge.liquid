@@ -1,0 +1,76 @@
+<script>
+(function () {
+  function openDrawer() {
+    var drawer = document.querySelector('cart-drawer');
+    if (!drawer) return false;
+    drawer.classList.add('animate', 'active');
+    drawer.dispatchEvent(new CustomEvent('cart:open', { bubbles: true }));
+    return true;
+  }
+
+  function updateBadges(count) {
+    document.querySelectorAll('[data-cart-count], .cart-count-bubble').forEach(function (el) {
+      el.textContent = count;
+    });
+  }
+
+  async function addToCart(variantId, quantity) {
+    var res = await fetch(window.Shopify.routes.cart_add_url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/javascript' },
+      body: JSON.stringify({ id: variantId, quantity: quantity })
+    });
+    if (!res.ok) throw new Error('cart_add failed: ' + res.status);
+    var cartRes = await fetch(window.Shopify.routes.cart_url + '.js');
+    var cart = await cartRes.json();
+    updateBadges(cart.item_count);
+  }
+
+  function attachOpeners() {
+    document.querySelectorAll('[data-cart-open]').forEach(function (btn) {
+      if (btn.dataset.dawnBridgeOpenerAttached) return;
+      btn.dataset.dawnBridgeOpenerAttached = '1';
+      btn.addEventListener('click', function (e) {
+        if (openDrawer()) {
+          e.preventDefault();
+        }
+      });
+    });
+  }
+
+  function attachQuickAdds() {
+    document.querySelectorAll('[data-product-add], [data-cart-quick-add]').forEach(function (btn) {
+      if (btn.dataset.dawnBridgeAttached) return;
+      btn.dataset.dawnBridgeAttached = '1';
+      btn.addEventListener('click', async function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var form = btn.closest('form');
+        var id = btn.dataset.cartQuickAdd
+          || (form && form.querySelector('[name="id"]') && form.querySelector('[name="id"]').value)
+          || btn.dataset.productAdd;
+        var qty = (form && form.querySelector('[name="quantity"]') && form.querySelector('[name="quantity"]').value) || 1;
+        if (!id) { console.warn('dawn-cart-bridge: no variant id on', btn); return; }
+        try {
+          await addToCart(id, qty);
+          openDrawer();
+        } catch (err) {
+          console.error('dawn-cart-bridge:', err);
+        }
+      });
+    });
+  }
+
+  function attachAll() {
+    attachOpeners();
+    attachQuickAdds();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachAll);
+  } else {
+    attachAll();
+  }
+  setTimeout(attachAll, 1500);
+})();
+</script>

@@ -1,0 +1,32 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop-all": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop All"
+          }
+        },
+        "more": {
+          "type": "menu",
+          "settings": {
+            "heading": "More"
+          }
+        }
+      },
+      "block_order": ["shop-all", "more"],
+      "settings": {
+        "newsletter_heading": "Stay connected with the latest SParms updates",
+        "newsletter_placeholder": "sparms@email.com",
+        "newsletter_disclaimer": "By subscribing, you agree to our privacy policy and email terms",
+        "show_payment_icons": true,
+        "show_locale_picker": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

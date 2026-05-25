@@ -1,0 +1,128 @@
+<div data-wf--main-menu--variant="base" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="component_navbar_section w-nav">
+  <div class="component_navbar_wrapper">
+    <nav role="navigation" class="component_navbar_navigation_wrapper w-nav-menu">
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_url | default: routes.collections_url }}" class="button is-secondary is-icon is-alternate w-inline-block">
+          <div class="button-icon w-embed">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 13 13" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true" role="img">
+              <circle cx="6.5" cy="6.5" r="6.5" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div>{{ section.settings.cta_label }}</div>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.main_menu != blank -%}
+        {%- for link in section.settings.main_menu.links -%}
+          {%- if link.links.size > 0 -%}
+            <div data-delay="0" data-hover="false" class="component_navbar_navigation_dropdown w-dropdown">
+              <div class="component_navbar_dropdown_toggle w-dropdown-toggle">
+                <div class="component_navbar_navigation_dropdown_icon w-icon-dropdown-toggle"></div>
+                <div>{{ link.title | escape }}</div>
+              </div>
+              <nav class="w-dropdown-list">
+                {%- for child in link.links -%}
+                  <a href="{{ child.url }}" class="w-dropdown-link">{{ child.title | escape }}</a>
+                {%- endfor -%}
+              </nav>
+            </div>
+          {%- else -%}
+            <a href="{{ link.url }}" class="component_navbar_navigation_link w-nav-link">{{ link.title | escape }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="component_navbar_logo_wrapper w-nav-brand" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag:
+          loading: 'eager',
+          width: section.settings.logo.width,
+          height: section.settings.logo.height,
+          class: 'component_navbar_logo',
+          alt: shop.name,
+          style: 'max-width: ' | append: section.settings.logo_max_width | append: 'px;'
+        }}
+      {%- else -%}
+        <img loading="lazy" src="{{ 'logo_1.svg' | asset_url }}" alt="{{ shop.name | escape }}" class="component_navbar_logo">
+      {%- endif -%}
+    </a>
+
+    <div class="component_navbar_icons_wrapper">
+      <a href="{{ routes.search_url }}" class="component_navbar_icons_link w-inline-block" aria-label="{{ 'general.search.title' | t | default: 'Search' }}">
+        <img loading="lazy" src="{{ 'search.svg' | asset_url }}" alt="" class="component_navbar_icons_link_icon">
+      </a>
+      <a href="{{ routes.account_url }}" class="component_navbar_icons_link w-inline-block" aria-label="{{ 'customer.account_fallback' | t | default: 'Account' }}">
+        <img loading="lazy" src="{{ 'accounts.svg' | asset_url }}" alt="" class="component_navbar_icons_link_icon">
+      </a>
+      <a href="{{ routes.cart_url }}" data-cart-open class="component_navbar_icons_link w-inline-block" aria-label="{{ 'sections.cart.title' | t | default: 'Cart' }}">
+        <img loading="lazy" src="{{ 'card.svg' | asset_url }}" alt="" class="component_navbar_icons_link_icon">
+        <span class="cart-count-bubble" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+      {%- if section.settings.show_currency_flag -%}
+        <span class="component_navbar_icons_link w-inline-block" aria-hidden="true">
+          <img loading="lazy" src="{{ 'au.webp' | asset_url }}" alt="">
+        </span>
+      {%- endif -%}
+    </div>
+
+    <div class="component_navbar_menu_button w-nav-button">
+      <div class="w-icon-nav-menu"></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Leave empty to keep the original Webflow SVG logo."
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": "Logo max width",
+      "min": 60,
+      "max": 320,
+      "step": 10,
+      "default": 140,
+      "unit": "px"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main menu",
+      "info": "Add up to one level of submenu for the 'More' dropdown style."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Lead CTA label",
+      "default": "SHOP ALL"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Lead CTA URL",
+      "info": "Defaults to /collections if left blank."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_flag",
+      "label": "Show currency flag icon",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}

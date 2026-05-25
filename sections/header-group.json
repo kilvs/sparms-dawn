@@ -1,0 +1,15 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_max_width": 140,
+        "cta_label": "SHOP ALL",
+        "show_currency_flag": true
+      }
+    }
+  },
+  "order": ["header"]
+}

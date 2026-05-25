@@ -15,6 +15,8 @@
 
 set -e
 missing=0
+
+# Files that must exist at an exact path.
 REQUIRED=(
   layout/theme.liquid
   layout/password.liquid
@@ -30,21 +32,33 @@ REQUIRED=(
   templates/404.json
   templates/password.json
   templates/gift_card.liquid
-  templates/customers/account.liquid
-  templates/customers/activate_account.liquid
-  templates/customers/addresses.liquid
-  templates/customers/login.liquid
-  templates/customers/order.liquid
-  templates/customers/register.liquid
-  templates/customers/reset_password.liquid
   config/settings_schema.json
   config/settings_data.json
   locales/en.default.json
 )
 
+# Files Shopify accepts as either .json (sections-based) or .liquid (legacy).
+# Modern Dawn ships these as .json — accept that as a valid form.
+REQUIRED_EITHER=(
+  templates/customers/account
+  templates/customers/activate_account
+  templates/customers/addresses
+  templates/customers/login
+  templates/customers/order
+  templates/customers/register
+  templates/customers/reset_password
+)
+
 for f in "${REQUIRED[@]}"; do
   if [ ! -e "$f" ]; then
     echo "MISSING: $f"
+    missing=$((missing + 1))
+  fi
+done
+
+for stem in "${REQUIRED_EITHER[@]}"; do
+  if [ ! -e "$stem.json" ] && [ ! -e "$stem.liquid" ]; then
+    echo "MISSING: $stem.json or $stem.liquid"
     missing=$((missing + 1))
   fi
 done
