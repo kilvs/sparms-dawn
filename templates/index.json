@@ -1,11 +1,75 @@
 {
   "sections": {
-    "main": {
-      "type": "page-index",
-      "settings": {}
+    "hero": {
+      "type": "home-01-hero",
+      "settings": {
+        "show_section": true,
+        "show_intro_animation": true
+      }
+    },
+    "logo": {
+      "type": "component-logo",
+      "settings": {
+        "show_section": true
+      }
+    },
+    "product-slider": {
+      "type": "home-02-product-slider",
+      "settings": {
+        "show_section": true
+      }
+    },
+    "feature": {
+      "type": "component-feature",
+      "settings": {
+        "show_section": true,
+        "heading": "the sporting advantage",
+        "description": "<p>The Original sun sleeve, and the choice of champions, Sparms is trusted by elite athletes worldwide. Our lightweight, breathable fabrics are designed to enhance, not limit. Get the best protection for your every day.</p>"
+      }
+    },
+    "collection": {
+      "type": "component-collection",
+      "settings": {
+        "show_section": true
+      }
+    },
+    "ambassadors": {
+      "type": "component-ambassadors",
+      "settings": {
+        "show_section": true
+      }
+    },
+    "testimonial": {
+      "type": "component-testimonial",
+      "settings": {
+        "show_section": true
+      }
+    },
+    "cta": {
+      "type": "component-cta",
+      "settings": {
+        "show_section": true,
+        "heading": "PERFORM UNDER PRESSURE with THE ORIGINAL SUN SLEEVE",
+        "body": "<p>Join thousands of athletes protecting their skin with our high-performance sun sleeves.</p>",
+        "button_label": "SHOP ALL"
+      }
+    },
+    "community": {
+      "type": "component-community",
+      "settings": {
+        "show_section": true
+      }
     }
   },
   "order": [
-    "main"
+    "hero",
+    "logo",
+    "product-slider",
+    "feature",
+    "collection",
+    "ambassadors",
+    "testimonial",
+    "cta",
+    "community"
   ]
 }
