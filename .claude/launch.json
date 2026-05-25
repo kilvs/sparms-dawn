@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "webflow-source",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "http-server", "webflow-source", "-p", "5173", "-c-1", "--cors"],
+      "port": 5173
+    }
+  ]
+}
